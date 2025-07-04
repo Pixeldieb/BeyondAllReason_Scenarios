@@ -1,44 +1,79 @@
 @echo off
-setlocal
+rem ============================================================================
+rem  Beyond-All-Reason – Ordnerstruktur für Szenarios anlegen
+rem  Erstellt: 2025-07-04
+rem ============================================================================
 
-REM Setze den Pfad zur Hauptinstallation von Beyond-All-Reason
-set "basePath=%LOCALAPPDATA%\Programs\Beyond-All-Reason"
+rem -- 1) Vorbereitungen -------------------------------------------------------
+setlocal EnableDelayedExpansion
+title BAR Scenario Folder Creator
 
-REM Überprüfen, ob der LuaMenu-Ordner existiert
-if exist "%basePath%\data\LuaMenu" (
-    echo LuaMenu-Ordner gefunden: %basePath%\data\LuaMenu
+rem Kandidatenliste möglicher Installationsverzeichnisse
+set "candidate[0]=%LOCALAPPDATA%\Programs\Beyond-All-Reason"
+set "candidate[1]=C:\Programme\Beyond-All-Reason"
+set "candidate[2]=C:\Program Files\Beyond-All-Reason"
+set "candidate[3]=C:\Program Files (x86)\Beyond-All-Reason"
 
-    REM Öffne den LuaMenu-Ordner im Explorer
-    start "" "%basePath%\data\LuaMenu"
+set "foundPath="
 
-    REM Erstelle Ordnerstruktur Schritt für Schritt
-    cd /d "%basePath%\data\LuaMenu"
-    if not exist "configs" (
-        mkdir "configs"
+rem -- 2) Automatisches Suchen der Installation --------------------------------
+for /L %%i in (0,1,3) do (
+    call set "tryPath=%%candidate[%%i]%%"
+    if exist "!tryPath!\data\LuaMenu" (
+        set "foundPath=!tryPath!"
+        goto :pathFound
     )
-    cd "configs"
-
-    if not exist "gameConfig" (
-        mkdir "gameConfig"
-    )
-    cd "gameConfig"
-
-    if not exist "byar" (
-        mkdir "byar"
-    )
-    cd "byar"
-
-    if not exist "scenarios" (
-        mkdir "scenarios"
-    )
-
-    REM Öffne den scenarios-Ordner im Explorer
-    start "" "%cd%\scenarios"
-
-    echo Ordnerstruktur erfolgreich erstellt und scenarios-Ordner geöffnet.
-) else (
-    echo LuaMenu-Ordner nicht gefunden!
-    pause
 )
 
+rem -- 3) Nicht gefunden → Benutzer nach Pfad fragen ---------------------------
+echo.
+echo [WARN] Keine BAR-Installation in den Standardpfaden gefunden.
+echo        Versuchte Pfade:
+for /L %%i in (0,1,3) do call echo        %%candidate[%%i]%%
+echo.
+echo Bitte zieh deinen Beyond-All-Reason-Ordner hier hinein
+echo oder gib den vollstaendigen Pfad ein und bestaetige mit [Enter]:
+set /p "userPath=> "
+
+if not exist "%userPath%\data\LuaMenu" (
+    echo.
+    echo [ERROR] Der angegebene Pfad ist ungueltig oder enthaelt keinen LuaMenu-Ordner.
+    pause
+    goto :eof
+)
+set "foundPath=%userPath%"
+
+:pathFound
+echo.
+echo [INFO] BAR-Installation gefunden unter:
+echo        "%foundPath%"
+echo.
+
+rem -- 4) Ordnerstruktur anlegen -----------------------------------------------
+pushd "%foundPath%\data\LuaMenu" || (
+    echo [ERROR] Konnte LuaMenu-Ordner nicht betreten.
+    pause
+    goto :eof
+)
+
+if not exist "configs"          mkdir "configs"
+pushd configs
+
+if not exist "gameConfig"       mkdir "gameConfig"
+pushd gameConfig
+
+if not exist "byar"             mkdir "byar"
+pushd byar
+
+if not exist "scenarios"        mkdir "scenarios"
+
+rem -- 5) Scenarios-Ordner im Explorer oeffnen ---------------------------------
+start "" "%cd%\scenarios"
+
+popd & popd & popd & popd   rem alle pushd-Ebenen verlassen
+
+echo.
+echo [SUCCESS] Ordnerstruktur wurde sichergestellt.
+echo           Der scenarios-Ordner ist jetzt geoeffnet.
+pause
 endlocal
