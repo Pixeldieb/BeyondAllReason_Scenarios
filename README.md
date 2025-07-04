@@ -138,7 +138,4 @@ Your new scenarios will now appear in the game’s scenario selector.
 
 ---
 
-🎉 Enjoy your custom scenarios! If something doesn’t show up, double-check that the folder name and file names match exactly. ```
-````
-
-
+🎉 Enjoy your custom scenarios! If something doesn’t show up, double-check that the folder name and file names match exactly.
