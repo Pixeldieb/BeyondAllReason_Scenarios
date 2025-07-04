@@ -110,13 +110,12 @@ Each `scenario####-Title` folder on GitHub contains three files:
 2. **Choose one of two methods**  
 **Option A: Download individual files**  
 - Download **only** the `.jpg` and `.lua` from the GitHub folder.  
-- Create a new folder here called `scenario####-Title` (use the exact same name).  
-- Move the `.jpg` and `.lua` into that folder.
+- Move the `.jpg` and `.lua` into the `scenarios` folder.
 
 **Option B: Download & extract the ZIP**  
 - Download `scenario####-Title.zip`.  
 - Extract it **directly** into your local `scenarios` folder.  
-- The extraction will create the `scenario####-Title` folder with both files inside.
+
 
 3. **Verify your folder tree**  
 After installation, your structure should look like:
@@ -124,12 +123,8 @@ After installation, your structure should look like:
 ```
 
 ...\scenarios
-├── scenario0025-Porcupine
-│   ├── scenario0025-Porcupine.lua
-│   └── scenario0025-Porcupine.jpg
-└── scenario0104-Final-Show
-├── scenario0104-Final-Show\.lua
-└── scenario0104-Final-Show\.jpg
+  ├── scenario0025-Porcupine.lua
+  └── scenario0025-Porcupine.jpg
 
 ````
 
