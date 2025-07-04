@@ -81,7 +81,64 @@ LuaMenu
             └── scenarios
 ```
 
-You’re now ready to use scenarios in **Beyond All Reason**!
+
+## 📥 Installing Scenarios After Running the Batch
+
+Once you’ve run the batch file to create your `scenarios` folder, you can add new scenarios from our GitHub:
+
+```
+
+/Scenarios for Download/scenario####-Title/
+
+```
+
+Each `scenario####-Title` folder on GitHub contains three files:
+
+- `scenario####-Title.jpg`  – banner image  
+- `scenario####-Title.lua`  – scenario script  
+- `scenario####-Title.zip`  – packaged download (contains the `.jpg` and `.lua`)
+
+### How to Install
+
+1. **Open your local scenarios folder**  
+```
+
+%LOCALAPPDATA%\Programs\Beyond-All-Reason\data\LuaMenu\configs\gameConfig\byar\scenarios
+
+```
+
+2. **Choose one of two methods**  
+**Option A: Download individual files**  
+- Download **only** the `.jpg` and `.lua` from the GitHub folder.  
+- Create a new folder here called `scenario####-Title` (use the exact same name).  
+- Move the `.jpg` and `.lua` into that folder.
+
+**Option B: Download & extract the ZIP**  
+- Download `scenario####-Title.zip`.  
+- Extract it **directly** into your local `scenarios` folder.  
+- The extraction will create the `scenario####-Title` folder with both files inside.
+
+3. **Verify your folder tree**  
+After installation, your structure should look like:
+
+```
+
+...\scenarios
+├── scenario0025-Porcupine
+│   ├── scenario0025-Porcupine.lua
+│   └── scenario0025-Porcupine.jpg
+└── scenario0104-Final-Show
+├── scenario0104-Final-Show\.lua
+└── scenario0104-Final-Show\.jpg
+
+````
+
+4. **Start (or restart) Beyond All Reason**  
+Your new scenarios will now appear in the game’s scenario selector.
 
 ---
+
+🎉 Enjoy your custom scenarios! If something doesn’t show up, double-check that the folder name and file names match exactly. ```
+````
+
 
